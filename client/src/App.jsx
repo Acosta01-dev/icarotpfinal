@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './pages/Home/Home';
+import Cart from './pages/Cart/Cart';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
 
 function App() {
@@ -34,6 +35,10 @@ function App() {
     {
       path: "/",
       element: <Home addToCart={addToCart} cart={cart} />,
+    },
+    {
+      path: "/cart",
+      element: <Cart cart={cart} />,
     },
     {
       path: "*",

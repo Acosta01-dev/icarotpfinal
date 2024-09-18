@@ -1,0 +1,20 @@
+footer{
+    background-color: #111111;
+    padding: .9rem .5rem;
+    margin: .7rem;
+    border-radius: .3rem;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    div{
+        svg{
+            color: #ffff;
+            font-size: 30px;
+        }
+    }
+  
+    p{
+        font-size: 10px;
+    }
+}

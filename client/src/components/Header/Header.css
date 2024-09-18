@@ -1,0 +1,76 @@
+header {
+    background-color: #111111;
+    padding: .9rem .5rem;
+    margin: .7rem;
+    border-radius: .3rem;
+
+    nav {
+        color: #ffff;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+
+        div.nav-logo {
+            margin-left: 1rem;
+            display: flex;
+            align-items: center;
+            color: #42DB7B;
+
+            a {
+                display: inline-flex;
+            }
+
+            p {
+                margin-left: 8px;
+                font-family: "Roboto", sans-serif;
+                font-weight: 400;
+                font-style: normal;
+
+                font-size: 25px;
+
+                span {
+                    font-weight: 700;
+                }
+            }
+
+            i {
+                display: flex;
+                align-items: center;
+                font-size: 30px;
+            }
+        }
+
+        ul.nav-menu {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+
+            li {
+                margin: 0 10px;
+                font-family: "Roboto", sans-serif;
+                font-weight: 300;
+                font-style: normal;
+            }
+
+            li.nav-search_icon {
+                font-size: 20px;
+                height: 22px;
+            }
+        }
+
+        ul.nav-buy_icons {
+            display: flex;
+            flex-direction: row;
+            justify-content: end;
+            margin-right: 1rem;
+            align-items: center;
+
+            li {
+                margin: 0 10px;
+
+                height: 20px;
+                font-size: 20px;
+            }
+        }
+    }
+}

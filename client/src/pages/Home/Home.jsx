@@ -5,15 +5,16 @@ import Highlight from '../../components/Highlight/Highlight';
 import Items from '../../components/Items/Items';
 import './Home.css';
 
-const Home = ({ addToCart, cart }) => {
+const Home = ({ addToCart, cart, setCart }) => {
   return (
     <>
-      <Header cart={cart} />
+      <Header cart={cart} setCart={setCart} />
       <Highlight />
       <Items addToCart={addToCart} />
       <Footer />
     </>
   );
 };
+
 
 export default Home;

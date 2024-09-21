@@ -1,8 +1,9 @@
 import React from 'react';
+import './Cart.css';
 
 const Cart = ({ cart }) => {
   return (
-    <div>
+    <div className='cart'>
       <h2>Shopping Cart</h2>
       {cart.length === 0 ? (
         <p>Your cart is empty.</p>
@@ -18,6 +19,9 @@ const Cart = ({ cart }) => {
           ))}
         </ul>
       )}
+      <div>
+        Lorem, ipsum dolor.
+      </div>
     </div>
   );
 };

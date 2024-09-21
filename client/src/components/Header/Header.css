@@ -71,6 +71,82 @@ header {
                 height: 20px;
                 font-size: 20px;
             }
+
+            li .cart-summary {
+                width: 700px;
+                background-color: #111111d7;
+                backdrop-filter: blur(20px);
+
+                color: #fff;
+                padding: 20px;
+                position: absolute;
+                margin: 40px;
+                float: left;
+
+                right: -23px;
+                top: 40px;
+
+                display: flex;
+                justify-content: space-between;
+                flex-direction: column;
+                border-radius: 25px;
+                max-height: 20rem;
+
+                .cart-summary_buy-button {
+                    background-color: #42DB7B;
+                    width: 5.5rem;
+                    margin-top: 15px;
+                    border-radius: 25px;
+                    padding: 5px;
+
+                    a {
+                        align-items: center;
+                        margin: 0 0 0 5px;
+
+                        display: flex;
+                        font-weight: 100;
+                        color: #111111;
+
+                        i {
+                            align-items: center;
+                            display: flex;
+                            align-items: center;
+                            margin-left: 8px;
+                            font-size: 25px;
+                            font-weight: 100;
+                        }
+                    }
+                }
+            }
+
+            li .cart-summary:after {
+                content: " ";
+                position: absolute;
+                right: 30px;
+                top: -15px;
+                border-top: none;
+                border-right: 15px solid transparent;
+                border-left: 15px solid transparent;
+                border-bottom: 15px solid rgb(32, 32, 32);
+            }
+
+            li .cart-summary_content {
+                color: #fff;
+                display: flex;
+                justify-content: space-between;
+                flex-direction: column;
+                overflow: auto;
+                max-height: 15rem;
+
+                p {
+                    margin: 10px 0;
+                    font-size: 15px;
+                }
+                input{
+                    width:40px;
+                }
+            }
         }
     }
 }
+

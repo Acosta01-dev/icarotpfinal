@@ -7,34 +7,35 @@ import ErrorPage from './pages/ErrorPage/ErrorPage';
 function App() {
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) || []);
 
-  useEffect(() => {
+  useEffect(function() {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
 
-  const addToCart = (item) => {
-    setCart((prevCart) => {
-      const itemExistsIndex = prevCart.findIndex(cartItem => cartItem.id === item.id);
+  function addToCart(item) {
+    setCart(function(prevCart) {
+      const i = prevCart.findIndex(function(cartItem) {
+        return cartItem.id === item.id;
+      });
 
-      if (itemExistsIndex > -1) {
-        const updatedCart = [...prevCart];
-        updatedCart[itemExistsIndex] = {
-          ...updatedCart[itemExistsIndex],
-          quantity: updatedCart[itemExistsIndex].quantity + 1
-        };
+      //const i = prevCart.findIndex(cartItem => cartItem.id === item.id);
+
+      if (i > -1) {
+        const updatedCart = prevCart.slice(); 
+        updatedCart[i] = {...updatedCart[i],quantity: updatedCart[i].quantity + 1};
         localStorage.setItem('cart', JSON.stringify(updatedCart));
         return updatedCart;
       } else {
-        const updatedCart = [...prevCart, { ...item, quantity: 1 }];
+        const updatedCart = prevCart.concat({ ...item, quantity: 1 });
         localStorage.setItem('cart', JSON.stringify(updatedCart));
         return updatedCart;
       }
     });
-  };
+  }
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Home addToCart={addToCart} cart={cart} />,
+      element: <Home addToCart={addToCart} cart={cart} setCart={setCart} />, 
     },
     {
       path: "/cart",

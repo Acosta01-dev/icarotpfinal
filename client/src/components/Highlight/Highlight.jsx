@@ -64,9 +64,13 @@ function Highlight() {
                                 <a href="#">{highlight.description} <FaArrowUpRightFromSquare /></a>
                                 <i>{category ? category.description : 'Loading category...'}</i>
                                 <div className="tags">
+                                    {category ? (
                                         <span className="tag">
-                                           {category.name}
+                                            {category.name}
                                         </span>
+                                    ) : (
+                                        <span className="tag">Loading tag...</span>
+                                    )}
                                 </div>
                             </div>
                         </div>

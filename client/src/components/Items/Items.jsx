@@ -128,8 +128,8 @@ const Items = ({ addToCart }) => {
                                         <p>₳ {item.price}</p>
                                         <i>{item.category.name}</i>
                                     </div>
-                                    <div className="buy">
-                                        <i><MdAddShoppingCart onClick={() => handleAddToCart(item)} /></i>
+                                    <div className="buy" onClick={() => handleAddToCart(item)} >
+                                        <i><MdAddShoppingCart /></i>
                                     </div>
                                 </div>
                             </div>

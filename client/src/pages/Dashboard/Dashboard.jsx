@@ -6,15 +6,24 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function Dashboard() {
   const [user, setUser] = useState(null);
   const [purchases, setPurchases] = useState([]);
+  const [errorMessage, seterrorMessage] = useState('');
+
   const navigate = useNavigate();
 
   useEffect(() => {
+    const storederrorMessage = localStorage.getItem('errorMessage');
+    if (storederrorMessage) {
+      seterrorMessage(storederrorMessage);
+      localStorage.removeItem('errorMessage');
+    }
+
     const token = localStorage.getItem('token');
     if (!token) {
       return navigate('/account');
     }
     if (isTokenExpired(token)) {
-      alert("Sesión Expirada");
+      localStorage.setItem('errorMessage', 'Tu sesión ha expirado.');
+
       localStorage.removeItem('token');
       return navigate('/account');
     }

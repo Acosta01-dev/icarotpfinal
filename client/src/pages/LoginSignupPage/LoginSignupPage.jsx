@@ -4,6 +4,7 @@ import { jwtDecode } from "jwt-decode";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function LoginSignupPage() {
+    const [errorMessage, seterrorMessage] = useState('');
     const [isLogin, setIsLogin] = useState(true);
     const [formData, setFormData] = useState({
         firstName: '',
@@ -21,11 +22,17 @@ function LoginSignupPage() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        const storederrorMessage = localStorage.getItem('errorMessage');
+        if (storederrorMessage) {
+            seterrorMessage(storederrorMessage);
+            localStorage.removeItem('errorMessage');
+        }
         const token = localStorage.getItem('token');
         if (token) {
             const decodedToken = jwtDecode(token);
             if (isTokenExpired(token)) {
-                alert('Tu sesión ha expirado.');
+                localStorage.setItem('errorMessage', 'Tu sesión ha expirado.');
+
                 localStorage.removeItem('token');
                 return navigate('/account');
             }
@@ -35,6 +42,7 @@ function LoginSignupPage() {
                 navigate('/dashboard');
             }
         }
+
     }, [navigate]);
 
     const isTokenExpired = (token) => {
@@ -105,6 +113,9 @@ function LoginSignupPage() {
     return (
         <div className="container mt-5">
             <i>Nota al profesor: Cuenta de administrador email: admin@admin.com contraseña: admin</i>
+
+            {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
+
             <div className={`  mx-auto p-5 ${isLogin ? 'card' : 'd-flex flex-column my-5 mx-auto border rounded shadow-lg'}`} style={isLogin ? {} : { width: '40rem' }}>
                 <h2 className="text-center">{isLogin ? 'Iniciar sesión' : 'Registrarse'}</h2>
                 {error && <p className="text-danger text-center">{error}</p>}

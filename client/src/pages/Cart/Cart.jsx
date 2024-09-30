@@ -6,18 +6,26 @@ import { jwtDecode } from 'jwt-decode';
 const Cart = ({ cart, setCart }) => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
-  const [sendPurchase, setSendPurchase] = useState(false);  
+  const [sendPurchase, setSendPurchase] = useState(false);
+  const [errorMessage, seterrorMessage] = useState('');
   const token = localStorage.getItem('token');
 
   useEffect(() => {
+
+    const storederrorMessage = localStorage.getItem('errorMessage');
+    if (storederrorMessage) {
+      seterrorMessage(storederrorMessage);
+      localStorage.removeItem('errorMessage');
+    }
+
     if (!token) {
-      alert('Debes iniciar sesión para realizar la compra.');
+      localStorage.setItem('errorMessage', 'Debes iniciar sesión para realizar la compra.');
       navigate('/account');
       return;
     }
 
     if (isTokenExpired(token)) {
-      alert('Tu sesión ha expirado.');
+      localStorage.setItem('errorMessage', 'Tu sesión ha expirado.');
       localStorage.removeItem('token');
       navigate('/account');
       return;
@@ -49,7 +57,7 @@ const Cart = ({ cart, setCart }) => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        alert(`Error fetching user data: ${errorData.error}`);
+        alert(`${errorData.error}`);
         return;
       }
 
@@ -65,13 +73,13 @@ const Cart = ({ cart, setCart }) => {
       alert('Tu carrito está vacío.');
       return;
     }
-  
+
     const purchases = cart.map(item => ({
       itemId: item.id,
       quantity: item.quantity,
       totalPrice: item.price * item.quantity
     }));
-  
+
     try {
       const response = await fetch('http://localhost:3030/api/purchases', {
         method: 'POST',
@@ -79,9 +87,9 @@ const Cart = ({ cart, setCart }) => {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ purchases, sendPurchase }) 
+        body: JSON.stringify({ purchases, sendPurchase })
       });
-  
+
       if (!response.ok) {
         const errorData = await response.json();
         alert(`Error: ${errorData.error}`);
@@ -94,7 +102,7 @@ const Cart = ({ cart, setCart }) => {
       alert('Hubo un error al realizar la compra. Inténtalo de nuevo.');
     }
   };
-  
+
 
   const handleRemove = (itemId) => {
     setCart((prevCart) => prevCart.filter(item => item.id !== itemId));

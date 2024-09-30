@@ -19,15 +19,24 @@ function AdminDashboard() {
     const [editItemId, setEditItemId] = useState(null);
     const token = localStorage.getItem('token');
     const [categories, setCategories] = useState([]);
+    const [errorMessage, seterrorMessage] = useState('');
+
     const navigate = useNavigate();
 
     useEffect(() => {
+        const storederrorMessage = localStorage.getItem('errorMessage');
+        if (storederrorMessage) {
+          seterrorMessage(storederrorMessage);
+          localStorage.removeItem('errorMessage');
+        }
+
         const token = localStorage.getItem('token');
         if (!token) {
             return navigate('/account');
         }
         if (isTokenExpired(token)) {
-            alert('Tu sesión ha expirado.');
+            localStorage.setItem('errorMessage', 'Tu sesión ha expirado.');
+
             localStorage.removeItem('token');
             return navigate('/account');
         }
@@ -77,7 +86,7 @@ function AdminDashboard() {
                 const data = await response.json();
                 setCategories(data);
             } catch (error) {
-                console.error('Error fetching categories:', error);
+                console.error(error);
                 setError(error.message);
             }
         };
@@ -121,7 +130,7 @@ function AdminDashboard() {
 
             setItems((prevItems) => prevItems.filter((item) => item.id !== id));
         } catch (error) {
-            console.error('Error deleting item:', error);
+            console.error(error);
         }
     };
 
@@ -172,7 +181,7 @@ function AdminDashboard() {
             setItems((prevItems) => [...prevItems, newItem]);
             setFormData({ title: '', price: '', description: '', categoryId: '', image: null, highlighted: false });
         } catch (error) {
-            console.error('Error creating item:', error);
+            console.error(error);
         }
     };
 

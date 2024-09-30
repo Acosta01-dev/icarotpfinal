@@ -3,6 +3,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Cart from './pages/Cart/Cart';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
+import LoginSignupPage from './pages/LoginSignupPage/LoginSignupPage';
+import Dashboard from './pages/Dashboard/Dashboard';
+import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
 
 function App() {
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) || []);
@@ -39,7 +42,20 @@ function App() {
     },
     {
       path: "/cart",
-      element: <Cart cart={cart} />,
+      element: <Cart cart={cart} setCart={setCart}/>,
+      
+    },
+    {
+      path: "/account",
+      element: <LoginSignupPage/>,
+    },
+    {
+      path: "/dashboard",
+      element: <Dashboard/>,
+    },
+    {
+      path: "/dashboard-admin",
+      element: <AdminDashboard/>,
     },
     {
       path: "*",

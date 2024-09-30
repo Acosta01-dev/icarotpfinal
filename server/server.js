@@ -1,7 +1,8 @@
 const sequelize = require('./config/database');
 const express = require('express');
-const { Item, Category } = require('./models');
+//const { Item, Category } = require('./models');
 const cors = require('cors');
+require('dotenv').config();
 
 const app = express();
 const port = 3030;
@@ -14,7 +15,11 @@ app.use(cors({
 
 app.use(express.json());
 
-// Las rutas deben venir después de la configuración de CORS
+const path = require('path'); 
+
+app.use('/assets/images', express.static(path.join(__dirname, 'src/assets/images')));
+
+
 app.use('/api', require('./routes')); 
 
 (async () => {

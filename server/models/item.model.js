@@ -30,10 +30,15 @@ const Item = sequelize.define('Item', {
     image: {
         type: DataTypes.STRING,
         allowNull: true,
+    },
+    highlighted: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: false
     }
 }, {
     timestamps: true,
-    tableName: 'items'
+    tableName: 'item'
 });
 
 Item.belongsTo(Category, { foreignKey: 'categoryId', as: 'category' });

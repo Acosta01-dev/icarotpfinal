@@ -1,10 +1,25 @@
 const { getAllCategories } = require("./categories.controller");
-const {createItem , getAllItems } = require('./item.controller');
-const { getAllHighlights } = require("./highlight.controller");
+const { 
+    createItem, 
+    getAllItems, 
+    getItemById,   
+    updateItem,     
+    deleteItem      
+} = require('./items.controller');
+const { getAllHighlights } = require("./highlights.controller");
+const {signUp,login} = require("./users.controller");
+const {createPurchase,getPurchaseHistory} = require("./purchasehistory.controller")
 
 module.exports = {
     getAllItems,
     createItem,
+    getItemById,    
+    updateItem,     
+    deleteItem,     
     getAllCategories,
-    getAllHighlights
+    getAllHighlights,
+    signUp,
+    login,
+    createPurchase,
+    getPurchaseHistory
 };

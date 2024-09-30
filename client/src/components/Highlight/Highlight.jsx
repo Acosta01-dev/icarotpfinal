@@ -15,14 +15,13 @@ function Highlight() {
                 return response.json();
             })
             .then(data => {
-                console.log('Categories fetched:', data);
                 setCategories(data);
             })
             .catch(error => {
                 console.error('Error fetching categories:', error);
             });
 
-        fetch('http://localhost:3030/api/highlights/')
+        fetch('http://localhost:3030/api/items/')
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -30,8 +29,8 @@ function Highlight() {
                 return response.json();
             })
             .then(data => {
-                console.log('Highlights fetched:', data);
-                setHighlights(data);
+                const filteredHighlights = data.filter(highlight => highlight.highlighted === true);
+                setHighlights(filteredHighlights);
             })
             .catch(error => {
                 console.error('Error fetching highlights:', error);
@@ -50,34 +49,35 @@ function Highlight() {
         );
     }
 
-    return (
-        <>
-            <div className="highlight">
-                {highlights.map((highlight) => {
-                    const category = categories.find(cat => cat.id === highlight.categoryId);
+    // Establecemos una clase dinámica en función del número de items
+    const highlightClass = highlights.length === 1
+        ? 'highlight-single'
+        : highlights.length === 2
+        ? 'highlight-double'
+        : 'highlight-triple';
 
-                    return (
-                        <div key={highlight.id} className="highlight-item"
-                            style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.781), rgba(0, 0, 0, 0.521)), url(${highlight.image})` }}>
-                            <div>
-                                <h3>{highlight.title}</h3>
-                                <a href="#">{highlight.description} <FaArrowUpRightFromSquare /></a>
-                                <i>{category ? category.description : 'Loading category...'}</i>
-                                <div className="tags">
-                                    {category ? (
-                                        <span className="tag">
-                                            {category.name}
-                                        </span>
-                                    ) : (
-                                        <span className="tag">Loading tag...</span>
-                                    )}
-                                </div>
-                            </div>
+    return (
+        <div className={`highlight ${highlightClass}`}>
+            {highlights.slice(0, 3).map((highlight) => {
+                const category = categories.find(cat => cat.id === highlight.categoryId);
+
+                return (
+                    <div key={highlight.id} className="highlight-item"
+                        style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.781), rgba(0, 0, 0, 0.521)), url(http://localhost:3030/assets/images/${highlight.image})` }}>
+                        <div>
+                            <h3>{highlight.title}</h3>
+                            <a href="#">{highlight.description}
+                                <i>
+                                    <FaArrowUpRightFromSquare />
+                                </i>
+                            </a>
+                            <i>{category ? category.description : 'Cargando categorías...'}</i>
+                            <Tags tags={[category ? category.name : 'Cargando etiquetas...']} />
                         </div>
-                    );
-                })}
-            </div>
-        </>
+                    </div>
+                );
+            })}
+        </div>
     );
 }
 

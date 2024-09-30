@@ -25,10 +25,12 @@ const Highlight = sequelize.define('highlight', {
     },
 }, {
     timestamps: true,
-    tableName: 'highlights' 
+    tableName: 'highlight' 
 });
 
 Highlight.belongsTo(Category, { foreignKey: 'categoryId', as: 'category' });
 Category.hasMany(Highlight, { foreignKey: 'categoryId' });
 
 module.exports = Highlight;
+
+//deprecated code TODO: Borrar

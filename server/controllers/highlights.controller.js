@@ -13,3 +13,5 @@ exports.getAllHighlights = async (req, res) => {
     }
 };
 
+//Deprecated Code - TODO: Borrar
+

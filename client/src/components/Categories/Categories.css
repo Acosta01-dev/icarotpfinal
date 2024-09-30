@@ -1,0 +1,36 @@
+.categories {
+    margin: .7rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: .5rem 2rem;
+}
+
+.category {
+    margin: .5rem 1rem;
+    padding: .5rem 1rem; 
+    border-radius: 25px; 
+    transition: background-color 0.3s, transform 0.3s;
+    cursor: pointer;     
+    background-color: #7a7a7a52;
+}
+
+.category p {
+    margin: auto;
+    border-radius: 15px;
+}
+
+.category:hover {
+    color: #ffffff;
+    font-weight: bold;
+    background-color: #525252;
+    transform: scale(1.1); 
+}
+
+.category.active {
+    background-color: #51FF9C;
+    color: #111111;
+    font-weight: bold;
+    border-radius: 25px;
+}
